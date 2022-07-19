@@ -5,15 +5,15 @@ function reveal(el) {
     const {top, bottom} = el.getBoundingClientRect();
 
     if (bottom < 0) {
+        el.classList.remove('reveal_active')
         return false;
     }
 
     if (top > window.innerHeight) {
+        el.classList.remove('reveal_active')
         return false
     } else {
         el.classList.add('reveal_active');
-       // return true;
-
     }
     return true;
 }

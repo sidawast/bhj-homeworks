@@ -11,22 +11,25 @@ let menuSub = Array.from(el);
 
 close();
 
-for (let i = 0; i < menuSub.length; i++){
-  
-   if (menuSub[i].className.includes('menu menu_sub')) {
-   el[i].classList.add('menu_active')
-   } 
-}
-for (let i = 0; i < menuSubCopy.length; i++){
-  
-   if (menuSubCopy[i].className.includes('menu menu_sub menu_active')) {
-      for (let i = 0; i < menuSub.length; i++){
+if(el.length > 1) {
 
-      if (menuSub[i].className.includes('menu menu_sub menu_active')) {
-      el[i].classList.remove('menu_active') }}
+   for (let i = 0; i < menuSub.length; i++){
+      
+      if (menuSub[i].className.includes('menu menu_sub')) {
+         el[i].classList.add('menu_active')
       } 
    }
-return false;
+   for (let i = 0; i < menuSubCopy.length; i++){
+      
+      if (menuSubCopy[i].className.includes('menu menu_sub menu_active')) {
+         for (let i = 0; i < menuSub.length; i++){
+            
+            if (menuSub[i].className.includes('menu menu_sub menu_active')) {
+               el[i].classList.remove('menu_active') }}
+            } 
+         }
+         return false;
+      }
 }
 
 function close() {

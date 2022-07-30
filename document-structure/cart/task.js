@@ -12,7 +12,7 @@ function func() {
     quantity += 1; 
     a.previousElementSibling.textContent = quantity;
   }
-  if(a.className.includes('product__quantity-control_dec') && a.nextElementSibling.textContent >0) {
+  if(a.className.includes('product__quantity-control_dec') && a.nextElementSibling.textContent > 1) {
     quantity -= 1; 
     a.nextElementSibling.textContent = quantity;
   }
@@ -20,24 +20,25 @@ function func() {
     let product = document.querySelector('.cart__products');
     let el = a;
     while(el = el.parentElement) {
-        if(el.className == 'product') {
-        let id = el.attributes['data-id'].value;
-        let image = el.querySelector('img').attributes.src.value; 
-        
-        let productCheck = document.querySelectorAll('.cart__product');
-        if (productCheck.length > 0) {
-            productCheck.forEach(function(elem) {
-                if(elem.attributes['data-id'].value == id) {
-                    let num = Number(elem.querySelector('.cart__product-count').textContent);
-                    quantity += num;
-                    elem.remove();
-                    inner(product, id, image, quantity)
-                }
-            });      
-        } else {         
-            inner(product, id, image, quantity, 0)
-            }                   
-        }
+      
+      if(el.className == 'product') {
+      let id = el.attributes['data-id'].value;
+      let image = el.querySelector('img').attributes.src.value;         
+      let productCheck = document.querySelectorAll('.cart__product');
+
+function getCharacter(id) {
+  return product => product.dataset.id === id;
+}
+let xProduct = Array.from(productCheck).find(getCharacter(id));
+      if (xProduct) {
+        num = Number(xProduct.querySelector('.cart__product-count').textContent);  
+        xProduct.remove();
+        quantity += num;
+        inner(product, id, image, quantity);
+                    
+      } else {  
+        inner(product, id, image, quantity) }              
+      }
     }    
   }
 }

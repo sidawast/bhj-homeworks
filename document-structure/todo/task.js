@@ -1,27 +1,25 @@
 
 let input = document.getElementById('task__input');
 let task = document.querySelector('.tasks__list');
+let form = document.querySelector('#tasks__form');
 
-
-//chatWidget.addEventListener('click', chat);
+form.addEventListener("submit", function(e) {e.preventDefault()});
 
 document.addEventListener('keydown', function(event) {
-    
-    if (event.keyCode == '13' && input.value) {       
-        task.innerHTML += ` 
-        <div class="task">
+    let trim = input.value.trim();
+    if (event.keyCode == '13' && trim) {
+        task.insertAdjacentHTML("afterBegin", `<div class="task">
         <div class="task__title">` + input.value + `</div>
         <a href="#" class="task__remove">&times;</a>
-        </div>
-        `;
+        </div>`); 
+      
         input.value = '';
         let remove = document.querySelectorAll('.task__remove');
         Array.from(remove).forEach((element) => {
-            element.addEventListener("click", clicker);
+            element.addEventListener("click", clicker);        
         });
     }
-});
-
+})
 
 function clicker() {
 

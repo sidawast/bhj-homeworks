@@ -19,7 +19,7 @@ chatWidget.addEventListener('click', chat);
 
 document.addEventListener('keydown', function(event) {
     
-    if (event.code == 'Enter' && input.value) {       
+    if (event.keyCode == '13' && input.value) {       
         
         messages.innerHTML += ` 
         <div class="message message_client">

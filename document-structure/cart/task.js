@@ -1,13 +1,17 @@
-
 let block = document.querySelectorAll('.product');
 
 block.forEach(function(elem) {
 	  elem.addEventListener("click", func)	    
-	  });
+	  
 
-function func() {
+function func(event) {
   let butControl = event.target;
   let quantity = Number(butControl.parentElement.querySelector('.product__quantity-value').textContent);
+  let elem = butControl.closest('.product');
+  const id = elem.attributes['data-id'].value;
+  const image = elem.querySelector('img').attributes.src.value;
+  const product = document.querySelector('.cart__products');
+
   if(butControl.className.includes('product__quantity-control_inc')) {
     quantity += 1; 
     butControl.previousElementSibling.textContent = quantity;
@@ -18,32 +22,20 @@ function func() {
   }
 
   if(butControl.className.includes('product__add')) {
-
-    let product = document.querySelector('.cart__products');
-    let el = butControl;
-    while(el = el.parentElement) {
-      
-      if(el.className == 'product') {
-      let id = el.attributes['data-id'].value;
-      let image = el.querySelector('img').attributes.src.value;         
+       
       let productCheck = document.querySelectorAll('.cart__product');
 
-      let xProduct = Array.from(productCheck).find(getCharacter(id));
+      let xProduct = Array.from(productCheck).find(product => product.dataset.id === id);
 
       if (xProduct) {
         num = Number(xProduct.querySelector('.cart__product-count').textContent);  
         return xProduct.querySelector('.cart__product-count').textContent = quantity + num;                   
-      } else {  
-        inner(product, id, image, quantity) }              
-      }
-    }    
-  }
+      } 
+      if(xProduct == undefined) {  
+        inner(product, id, image, quantity) }         
+      }    
 }
-
-function getCharacter(id) {
-  return product => product.dataset.id === id;
-}
-
+});
 function inner(product, id, image, quantity) {
 
     product.insertAdjacentHTML("beforeEnd",`
